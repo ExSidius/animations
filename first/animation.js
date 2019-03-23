@@ -12,7 +12,7 @@ let mouse = {
 
 
 let minRadius = 5
-let maxRadius = 80
+let maxRadius = 60
 
 function weightedRandom() {
 
@@ -27,7 +27,7 @@ function weightedRandom() {
 	return number
 }
 
-let colors = ['#98cdb5', '#feedb0', '#fd706c', '#fecb65']
+let colors = ['#70D6FF', '#FF70A6', '#FF9770', '#FFD670', 'E9FF70']
 
 class Circle {
 	constructor() {
