@@ -1,3 +1,44 @@
+let canvas = document.querySelector('canvas')
+
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
+
+let context = canvas.getContext('2d')
+
+class Circle {
+	constructor() {
+		this.x = Math.random() * innerWidth
+		this.dx = Math.random() * 40 - 20
+
+		this.y = Math.random() * innerHeight
+		this.dy = Math.random() * 40 - 20
+
+		this.radius = Math.random() * 20 + 20
+	}
+
+	draw() {
+		context.beginPath()
+		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+		context.strokeStyle = getRandomColor()
+		context.stroke()
+	}
+
+	update() {
+		if ((this.x + this.radius > innerWidth) || (this.x - this.radius < 0)) {
+			this.dx = - this.dx
+		}
+
+		if ((this.y + this.radius > innerHeight) || (this.y - this.radius < 0)) {
+			this.dy = - this.dy
+		}
+
+		this.x += this.dx
+		this.y += this.dy
+
+		this.draw()
+	}
+}
+
 function getRandomColor() {
   let letters = '0123456789ABCDEF'
   let color = '#'
@@ -7,35 +48,14 @@ function getRandomColor() {
   return color;
 }
 
+let circles = [...Array(20)].map(_ => new Circle())
 
-
-let canvas = document.querySelector('canvas')
-
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
-
-let context = canvas.getContext('2d')
-
-context.fillStyle = 'rgba(255, 0, 0, 0.5)'
-context.fillRect(100, 100, 100, 100)
-context.fillStyle = 'rgba(0, 255, 0, 0.5)'
-context.fillRect(400, 100, 100, 100)
-context.fillStyle = 'rgba(0, 0, 255, 0.5)'
-context.fillRect(300, 300, 100, 100)
-
-context.beginPath()
-context.moveTo(50, 300)
-context.lineTo(300, 100)
-context.lineTo(400, 300)
-context.strokeStyle = '#fa34a3'
-context.stroke()
-
-
-for (let i = 0; i < 20; i++) {
-
-	context.beginPath()
-	context.arc(Math.random() * window.innerWidth, Math.random() * window.innerHeight, 30, 0, Math.PI * 2, false)
-	context.strokeStyle = getRandomColor()
-	context.stroke()
+function animate() {
+	requestAnimationFrame(animate)
+	context.clearRect(0, 0, innerWidth, innerHeight)
+	circles.map(circle => circle.update())
 }
+
+
+animate()
 
