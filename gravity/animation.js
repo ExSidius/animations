@@ -34,7 +34,7 @@ class Ball {
 
 	update() {
 
-		if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
+		if (this.y + this.radius + this.dy > innerHeight || this.y - this.radius < 0) {
 			this.dy = - this.dy * 0.8
 		} else {
 			if (this.dy < terminalVelocity) {
