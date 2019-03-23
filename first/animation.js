@@ -5,23 +5,39 @@ canvas.height = window.innerHeight
 
 let context = canvas.getContext('2d')
 
+function weightedRandom() {
+
+	for (let i = 0; i < 100; i++) {
+		number = Math.random()
+
+		if (number < 0.3) {
+			return number
+		}
+	}
+
+	return number
+}
+
+let colors = ['#98cdb5', '#feedb0', '#fd706c', '#fecb65']
+
 class Circle {
 	constructor() {
 
-		this.radius = Math.random() * 30 + 30
+		this.radius = Math.random() * 40
 
 		this.x = Math.random() * (innerWidth - this.radius * 2) + this.radius
-		this.dx = Math.random() * 20 - 10
+		this.dx = Math.random() * 14 - 7
 
 		this.y = Math.random() * (innerHeight - this.radius * 2) + this.radius
-		this.dy = Math.random() * 20 - 10
+		this.dy = Math.random() * 14 - 7
+
+		this.color = colors[Math.floor(Math.random() * colors.length)]
 	}
 
 	draw() {
 		context.beginPath()
 		context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-		context.strokeStyle = 'blue'
-		context.stroke()
+		context.fillStyle = this.color
 		context.fill()
 	}
 
@@ -41,7 +57,7 @@ class Circle {
 	}
 }
 
-let circles = [...Array(20)].map(_ => new Circle())
+let circles = [...Array(100)].map(_ => new Circle())
 
 function animate() {
 	requestAnimationFrame(animate)
