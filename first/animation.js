@@ -16,10 +16,10 @@ let maxRadius = 60
 
 function weightedRandom() {
 
-	for (let i = 0; i < 100; i++) {
+	for (let i = 0; i < 200; i++) {
 		number = Math.random()
 
-		if (number < 0.3) {
+		if (number < 0.1) {
 			return number
 		}
 	}
@@ -32,7 +32,7 @@ let colors = ['#70D6FF', '#FF70A6', '#FF9770', '#FFD670', 'E9FF70']
 class Circle {
 	constructor() {
 
-		this.original_radius = Math.random() * 30
+		this.original_radius = Math.random() * 10
 		this.radius = this.original_radius
 
 		this.x = Math.random() * (innerWidth - this.radius * 2) + this.radius
