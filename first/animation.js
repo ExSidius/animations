@@ -78,7 +78,7 @@ class Circle {
 	}
 }
 
-let circles = [...Array(100)].map(_ => new Circle())
+let circles = [...Array(500)].map(_ => new Circle())
 
 function animate() {
 	requestAnimationFrame(animate)
