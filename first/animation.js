@@ -1,8 +1,5 @@
 let canvas = document.querySelector('canvas')
 
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
-
 let context = canvas.getContext('2d')
 
 let mouse = {
@@ -13,6 +10,13 @@ let mouse = {
 
 let minRadius = 5
 let maxRadius = 60
+
+
+function resize() {
+	canvas.width = window.innerWidth
+	canvas.height = window.innerHeight
+}
+
 
 function weightedRandom() {
 
@@ -52,11 +56,33 @@ class Circle {
 	}
 
 	update() {
-		if ((this.x + this.radius > innerWidth) || (this.x - this.radius < 0)) {
+		let xOutOfLeftBoundary = this.x - this.radius < 0
+		let xOutOfRightBoundary = this.x + this.radius > innerWidth
+		if (xOutOfLeftBoundary || xOutOfRightBoundary) {
+
+			if (xOutOfLeftBoundary) {
+				this.x = this.radius
+			}
+
+			if (xOutOfRightBoundary) {
+				this.x = innerWidth - this.radius
+			}
+
 			this.dx = - this.dx
 		}
 
-		if ((this.y + this.radius > innerHeight) || (this.y - this.radius < 0)) {
+		let yOutOfTopBoundary = this.y - this.radius < 0
+		let yOutOfBottomBoundary = this.y + this.radius > innerHeight
+		if (yOutOfTopBoundary || yOutOfBottomBoundary) {
+
+			if (yOutOfTopBoundary) {
+				this.y = this.radius
+			}
+
+			if (yOutOfBottomBoundary) {
+				this.y = innerHeight - this.radius
+			}
+
 			this.dy = - this.dy
 		}
 
@@ -86,10 +112,16 @@ function animate() {
 	circles.map(circle => circle.update())
 }
 
+resize()
 animate()
 
 window.addEventListener('mousemove', event => {
 	mouse.x = event.x
 	mouse.y = event.y
+	console.log(mouse)
+})
+
+window.addEventListener('resize', event => {
+	resize()
 })
 
