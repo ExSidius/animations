@@ -5,6 +5,15 @@ canvas.height = window.innerHeight
 
 let context = canvas.getContext('2d')
 
+let mouse = {
+	x: undefined,
+	y: undefined,
+}
+
+
+let minRadius = 5
+let maxRadius = 80
+
 function weightedRandom() {
 
 	for (let i = 0; i < 100; i++) {
@@ -23,13 +32,14 @@ let colors = ['#98cdb5', '#feedb0', '#fd706c', '#fecb65']
 class Circle {
 	constructor() {
 
-		this.radius = Math.random() * 40
+		this.original_radius = Math.random() * 30
+		this.radius = this.original_radius
 
 		this.x = Math.random() * (innerWidth - this.radius * 2) + this.radius
-		this.dx = Math.random() * 14 - 7
+		this.dx = Math.random() * 20 - 10
 
 		this.y = Math.random() * (innerHeight - this.radius * 2) + this.radius
-		this.dy = Math.random() * 14 - 7
+		this.dy = Math.random() * 20 - 10
 
 		this.color = colors[Math.floor(Math.random() * colors.length)]
 	}
@@ -53,6 +63,17 @@ class Circle {
 		this.x += this.dx
 		this.y += this.dy
 
+		if (Math.sqrt(Math.pow(this.x - mouse.x, 2) + Math.pow(this.y - mouse.y, 2)) - this.radius < 100) {
+			if (this.radius < maxRadius) {
+				this.radius += 5
+			}
+		} else {
+			if (this.radius > this.original_radius && this.radius > minRadius) {
+				this.radius -= 2
+			}
+		}
+
+
 		this.draw()
 	}
 }
@@ -65,6 +86,10 @@ function animate() {
 	circles.map(circle => circle.update())
 }
 
-
 animate()
+
+window.addEventListener('mousemove', event => {
+	mouse.x = event.x
+	mouse.y = event.y
+})
 
