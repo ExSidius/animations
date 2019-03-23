@@ -24,19 +24,15 @@ let colors = [
 
 class Ball {
 	constructor() {
-		this.x = Math.random() * window.innerWidth
-		this.y = Math.random() * window.innerHeight
+		this.radius = Math.random() * 30
+		this.x = Math.random() * (innerWidth - this.radius * 2) + this.radius
+		this.y = Math.random() * (innerHeight - this.radius * 2) + this.radius
 		this.dy = 20
 		this.ddy = 1
-		this.radius = Math.random() * 30
 		this.color = colors[Math.floor(Math.random() * colors.length)]
 	}
 
 	update() {
-
-		if (this.y - this.radius < 0) {
-			this.y = this.radius
-		}
 
 		if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
 			this.dy = - this.dy * 0.8
