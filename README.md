@@ -1,2 +1,2 @@
 # animations
-Practising JS animation.
+Practising JS animation. - http://exsidius.github.io/animations
